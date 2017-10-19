@@ -16,6 +16,9 @@ gem 'puma', '~> 3.7'
 # Integrate rails app with a ember app
 gem 'ember-cli-rails', '~> 0.10.0'
 
+# Include jsonapi serializer for compatibility with ember
+gem 'active_model_serializers', '~> 0.10.6'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
