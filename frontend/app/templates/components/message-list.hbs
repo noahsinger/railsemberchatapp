@@ -1,0 +1,7 @@
+<h2>messages</h2>
+
+<ul>
+  {{#each messages as |message|}}
+    <li>{{message.content}} written by {{message.user.nickname}}</li>
+  {{/each}}
+</ul>
