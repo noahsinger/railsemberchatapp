@@ -7,6 +7,7 @@ Router = EmberRouter.extend(
 );
 
 Router.map(->
+  this.route('messages', {path: '/'})
 )
 
 export default Router
