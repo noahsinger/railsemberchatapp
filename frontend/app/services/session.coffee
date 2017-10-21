@@ -15,4 +15,10 @@ export default Ember.Service.extend(
   get_current_user: ->
     this.set('current_user', Cookies.get('user_id'))
     this.get('current_user')
+
+  initialize_from_cookie: ->
+    console.log('initing cookies')
+    user_id = Cookies.get('user_id')
+    if !!user_id
+      this.set('current_user', user_id)
 )
