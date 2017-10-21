@@ -32,10 +32,20 @@ RSpec.describe UsersController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new User" do
+      it "creates a new User when the nickname doesn't exist" do
         expect {
           post :create, params: {user: valid_attributes}, session: valid_session
         }.to change(User, :count).by(1)
+      end
+
+      it "creates a returns the same User when the nickname does exist" do
+        existing_user = User.create! valid_attributes
+
+        expect {
+          post :create, params: {user: valid_attributes}, session: valid_session
+        }.to change(User, :count).by(0)
+
+        expect(response.location).to eq(user_url(existing_user))
       end
 
       it "renders a JSON response with the new user" do
