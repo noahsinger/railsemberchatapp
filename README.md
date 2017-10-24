@@ -35,6 +35,11 @@
 
 # Configuration
 
+## Dependencies
+
+* from project root run: bundle install
+* front frontend directory run: npm install
+
 ## Database creation
 
 * install postgresql
