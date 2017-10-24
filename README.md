@@ -27,21 +27,29 @@
 
 
 
-# ---
+## ---
+# versions
 * Ruby version: 2.4.2
+* Rails versions: 5.1
+* ember_cli: 2.16
 
-* System dependencies
+# Configuration
 
-* Configuration
+## Database creation
 
-* Database creation
+* install postgresql
+* add postgres user called 'chatappb' or change expected name in config/database.yml
+* add password to environment variable called 'chatappB_postgres_password'
+* run rails db:setup to create databases
+* run rails db:schema:load to create tables
 
-* Database initialization
+# How to run the test suite
 
-* How to run the test suite
+* rspec
 
-* Services (job queues, cache servers, search engines, etc.)
+# How to run the application
 
-* Deployment instructions
+* rails s to start server
+* visit http://localhost:3000/
 
-* ...
+the root route leads to the ember app
