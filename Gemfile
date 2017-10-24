@@ -17,7 +17,7 @@ gem 'puma', '~> 3.7'
 gem 'ember-cli-rails', '~> 0.10.0'
 
 # Include jsonapi serializer for compatibility with ember
-gem 'active_model_serializers', '~> 0.10.6'
+# gem 'active_model_serializers', '~> 0.10.6'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
