@@ -4,12 +4,12 @@ RSpec.describe MessagesController, type: :controller do
 
   # returns the minimal set of attributes required to create a valid Message
   let(:valid_attributes) {
-    user = User.create! nickname: 'nickname'
-    {content: 'content of message', user_id: user.id }
+    user = User.create!(nickname: 'nickname1')
+    {content: 'message content', user_id: user.id}
   }
 
   let(:invalid_attributes) {
-    {content: '', user_id: nil}
+    {content: 'message content', user_id: nil}
   }
 
   # return the minimal set of values that should be in the session
@@ -17,7 +17,10 @@ RSpec.describe MessagesController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      message = Message.create! valid_attributes
+      message = Message.new valid_attributes
+      message.user_id = valid_attributes[:user_id]
+      message.save
+
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -25,7 +28,10 @@ RSpec.describe MessagesController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      message = Message.create! valid_attributes
+      message = Message.new valid_attributes
+      message.user_id = valid_attributes[:user_id]
+      message.save
+
       get :show, params: {id: message.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -61,18 +67,24 @@ RSpec.describe MessagesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {content: 'this is a new message content'}
+        user = User.create!(nickname: 'nickname1')
+        {content: 'new message content', user_id: user.id}
       }
 
       it "updates the requested message" do
-        message = Message.create! valid_attributes
+        message = Message.new valid_attributes
+        message.user_id = valid_attributes[:user_id]
+        message.save
+
         put :update, params: {id: message.to_param, message: new_attributes}, session: valid_session
         message.reload
         expect(message.content).to eq(new_attributes[:content])
       end
 
       it "renders a JSON response with the message" do
-        message = Message.create! valid_attributes
+        message = Message.new valid_attributes
+        message.user_id = valid_attributes[:user_id]
+        message.save
 
         put :update, params: {id: message.to_param, message: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
@@ -82,7 +94,9 @@ RSpec.describe MessagesController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the message" do
-        message = Message.create! valid_attributes
+        message = Message.new valid_attributes
+        message.user_id = valid_attributes[:user_id]
+        message.save
 
         put :update, params: {id: message.to_param, message: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
@@ -93,7 +107,10 @@ RSpec.describe MessagesController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested message" do
-      message = Message.create! valid_attributes
+      message = Message.new valid_attributes
+      message.user_id = valid_attributes[:user_id]
+      message.save
+
       expect {
         delete :destroy, params: {id: message.to_param}, session: valid_session
       }.to change(Message, :count).by(-1)

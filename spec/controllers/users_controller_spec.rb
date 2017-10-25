@@ -4,11 +4,11 @@ RSpec.describe UsersController, type: :controller do
 
   # return the minimal set of attributes required to create a valid User
   let(:valid_attributes) {
-    {nickname: 'nickname1'}
+    {nickname: 'nickname1', loggedin: true}
   }
 
   let(:invalid_attributes) {
-    {nickname: nil}
+    {nickname: nil, loggedin: true}
   }
 
   # return the minimal set of values that should be in the session

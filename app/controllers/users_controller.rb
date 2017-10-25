@@ -2,23 +2,30 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
+  # or GET /users?nickname=something
   def index
-    @users = User.all
+    if params[:nickname]
+      @users = User.where(nickname: params[:nickname])
+    else
+      @users = User.where(loggedin: true)
+    end
 
-    render json: @users
+    render json: {user: @users}
   end
 
   # GET /users/1
   def show
-    render json: @user
+    render json: {user: @user}
   end
 
   # POST /users
   def create
-    @user = User.find_or_create_by user_params
+    # won't create a new user when one already exists with the submitted data,
+    #  instead it will return the already existing user
+    @user = User.find_or_create_by(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: {user: @user}, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -27,7 +34,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: {user: @user}
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -46,6 +53,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:nickname, :loggedin)
+      params.require(:user).permit("nickname","loggedin")
     end
 end
