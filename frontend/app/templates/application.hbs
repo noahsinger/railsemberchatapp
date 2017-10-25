@@ -1,6 +1,7 @@
 <h1>chat</h1>
 
 {{#if session.current_user}}
+  current_user: {{session.current_user}}
   {{outlet}}
 {{else}}
   {{user-login-form after_login=(action 'login_complete')}}
