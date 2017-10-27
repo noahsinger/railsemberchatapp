@@ -10,12 +10,12 @@ class UsersController < ApplicationController
       @users = User.where(loggedin: true)
     end
 
-    render json: {user: @users}
+    render jsonapi: @users
   end
 
   # GET /users/1
   def show
-    render json: {user: @user}
+    render jsonapi: @user
   end
 
   # POST /users
@@ -25,18 +25,18 @@ class UsersController < ApplicationController
     @user = User.find_or_create_by(user_params)
 
     if @user.save
-      render json: {user: @user}, status: :created, location: @user
+      render jsonapi: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render jsonapi_errors: @user.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: {user: @user}
+      render jsonapi: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render jsonapi_errors: @user.errors, status: :unprocessable_entity
     end
   end
 
@@ -53,6 +53,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit("nickname","loggedin")
+      params.require(:data).require(:attributes).permit(:nickname, :loggedin)
     end
 end

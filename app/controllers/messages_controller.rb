@@ -4,13 +4,12 @@ class MessagesController < ApplicationController
   # GET /messages
   def index
     @messages = Message.all
-
-    render json: {message: @messages}
+    render jsonapi: @messages, include: [:user]
   end
 
   # GET /messages/1
   def show
-    render json: {message: @messages}
+    render jsonapi: @message
   end
 
   # POST /messages
@@ -18,18 +17,18 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if @message.save
-      render json: {message: @messages}, status: :created, location: @message
+      render jsonapi: @message, status: :created, location: @message
     else
-      render json: @message.errors, status: :unprocessable_entity
+      render jsonapi_errors: @message.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /messages/1
   def update
     if @message.update(message_params)
-      render json: {message: @messages}
+      render jsonapi: @message
     else
-      render json: @message.errors, status: :unprocessable_entity
+      render jsonapi_errors: @message.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +45,6 @@ class MessagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def message_params
-      params.require(:message).permit(:content, :user_id)
+      params.require(:data).require(:attributes).permit(:content, :user_id)
     end
 end

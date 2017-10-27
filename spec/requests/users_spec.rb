@@ -8,7 +8,7 @@ RSpec.describe "Users", type: :request do
       get users_path
 
       # expect the result to be json
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/vnd.api+json')
     end
   end
 end

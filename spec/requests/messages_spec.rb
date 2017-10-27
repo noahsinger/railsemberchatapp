@@ -7,7 +7,7 @@ RSpec.describe "Messages", type: :request do
       message = user.messages.build(content: 'test message').save
 
       get messages_path
-      expect(response.content_type).to eq('application/json')
+      expect(response.content_type).to eq('application/vnd.api+json')
     end
   end
 end
