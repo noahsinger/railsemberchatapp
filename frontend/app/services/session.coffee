@@ -19,8 +19,8 @@ export default Ember.Service.extend(
           user.set('loggedin', true)
           user.save()
         else
-          # if the user isn't know, create then here and on the server
-          #   and then log them in
+          # if the user isn't known, create them here and on the server
+          #  and then log them in
           user = self.get('store').createRecord('user',
             nickname: nickname
             loggedin: true
