@@ -17,6 +17,11 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if @message.save
+      ActionCable.server.broadcast 'messages',
+        id: @message.id,
+        content: @message.content,
+        user_id: @message.user.id
+
       render jsonapi: @message, status: :created, location: @message
     else
       render jsonapi_errors: @message.errors, status: :unprocessable_entity

@@ -43,10 +43,13 @@
 ## Database creation
 
 * install postgresql
-* add postgres user called 'chatappb' or change expected name in config/database.yml
-* add password to environment variable called 'chatappB_postgres_password'
+  * add postgres user called 'chatappb' or change expected name in config/database.yml
+  * add password to environment variable called 'chatappB_postgres_password'
+
 * run rails db:setup to create databases
 * run rails db:schema:load to create tables
+
+* install and run redis at redis://localhost:6379/1
 
 # How to run the test suite
 
