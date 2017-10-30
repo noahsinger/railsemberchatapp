@@ -14,6 +14,7 @@ export default Ember.Component.extend(
         new_message = this.get('store').createRecord('message',
           content: this.get('new_message_text')
           user_id: this.get('session').get('current_user').get('id')
+          user: this.get('session').get('current_user')
         )
 
         new_message.save( ).then( =>

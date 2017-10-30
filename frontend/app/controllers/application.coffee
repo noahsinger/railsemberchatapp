@@ -35,11 +35,13 @@ export default Ember.Controller.extend(
 
         this.get('store').findRecord('user', data['user_id']).then( (user) =>
           if user != this.get('session').get('current_user')
-            this.get('store').pushPayload({data:{type: 'message', id: data['id'], attributes: data}})
-        )
+            console.log("current_user: #{this.get('session').get('current_user')}, data received: #{user}")
+            message = this.get('store').push({data:{type: 'message', id: data['id'], attributes: data}})
 
+            # associate the new message with the user that sent it for display
+            message.set('user', user)
+        )
 
       disconnected: ->
         console.log('disconnected')
-
 )
