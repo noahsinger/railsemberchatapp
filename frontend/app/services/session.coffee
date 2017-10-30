@@ -7,28 +7,27 @@ export default Ember.Service.extend(
   current_user: null
 
   login: (nickname) ->
-    self = this
     # look for a user with that nickname that already exists
     this.get('store').query('user', {nickname: nickname})
-      .then((users) ->
+      .then((users) =>
         # if that user is already known, log them in
         user = users.get('firstObject')
         if user
-          self.set('current_user', user)
+          this.set('current_user', user)
           Cookies.set('user_id', user.get('id'))
           user.set('loggedin', true)
           user.save()
         else
           # if the user isn't known, create them here and on the server
           #  and then log them in
-          user = self.get('store').createRecord('user',
+          user = this.get('store').createRecord('user',
             nickname: nickname
             loggedin: true
           );
 
           user.save()
-            .then(->
-              self.set('current_user', user)
+            .then( =>
+              this.set('current_user', user)
               Cookies.set('user_id', user.get('id'))
             )
       )
@@ -50,10 +49,10 @@ export default Ember.Service.extend(
   initialize_from_cookie: ->
     console.log('initing cookies')
     user_id = Cookies.get('user_id')
-    self = this
+
     if !!user_id
       this.get('store').findRecord('user', user_id)
-        .then((user) ->
-          self.set('current_user', user)
+        .then((user) =>
+          this.set('current_user', user)
         )
 )

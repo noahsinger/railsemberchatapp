@@ -16,11 +16,10 @@ export default Ember.Component.extend(
           user_id: this.get('session').get('current_user').get('id')
         )
 
-        self = this
-        new_message.save( ).then(->
+        new_message.save( ).then( =>
           console.log('message saved')
           # clear the textfield
-          self.set('new_message_text', '')
+          this.set('new_message_text', '')
         )
 
 )
