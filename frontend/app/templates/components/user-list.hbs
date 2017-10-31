@@ -1,7 +1,13 @@
-<h2>loggedin users</h2>
-
-<ul>
-  {{#each users as |user|}}
-    <li>{{user.nickname}}</li>
-  {{/each}}
-</ul>
+<div id="user_list">
+  <ul>
+    {{#each users as |user|}}
+      {{#if user.loggedin}}
+        {{#if user.isCurrentUser}}
+          <li><b>{{user.nickname}}</b></li>
+        {{else}}
+          <li>{{user.nickname}}</li>
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>

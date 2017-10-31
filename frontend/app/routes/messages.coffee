@@ -6,7 +6,7 @@ export default Ember.Route.extend(
 
   model: ->
     RSVP.hash
-      # peek to only load messages already in the store (should be none)
+      # peek to only load messages already in the store
       messages: this.get('store').peekAll('message')
       users: this.get('store').findAll('user')
 
