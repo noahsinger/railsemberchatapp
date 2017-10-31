@@ -8,8 +8,7 @@ export default Ember.Service.extend(
 
   login: (nickname) ->
     # look for a user with that nickname that already exists
-    this.get('store').query('user', {nickname: nickname})
-      .then((users) =>
+    this.get('store').query('user', {nickname: nickname}).then((users) =>
         # if that user is already known, log them in
         user = users.get('firstObject')
         if user
