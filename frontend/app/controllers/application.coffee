@@ -17,6 +17,8 @@ export default Ember.Controller.extend(
   setupConsumer: Ember.on 'init', ->
     consumer = this.get('cable').createConsumer($("meta[name=action-cable-url]").attr('content'))
 
+    ##################################
+    # subscription and setup for Messages
     consumer.subscriptions.create "MessagesChannel",
       # access to the store for pushing new streamed messages
       store: Ember.inject.service()
@@ -25,7 +27,7 @@ export default Ember.Controller.extend(
       session: Ember.inject.service()
 
       connected: ->
-        console.log('connected')
+        console.log('messages connected')
 
       received: (data) ->
         console.log("message posted: #{Ember.inspect(data)}")
@@ -43,5 +45,27 @@ export default Ember.Controller.extend(
         )
 
       disconnected: ->
-        console.log('disconnected')
+        console.log('messages disconnected')
+
+    ##################################
+    # subscription and setup for Users
+    consumer.subscriptions.create "UsersChannel",
+      # access to the store for pushing new streamed messages
+      store: Ember.inject.service()
+
+      # session needed to find current_user so we don't double post their messages
+      session: Ember.inject.service()
+
+      connected: ->
+        console.log('users connected')
+
+      received: (data) ->
+        console.log("user posted: #{Ember.inspect(data)}")
+
+        this.get('store').query('user', {nickname: data['nickname']}).then((users) =>
+          this.get('store').push({data:{type: 'user', id: data['id'], attributes: data}})
+        )
+
+      disconnected: ->
+        console.log('users disconnected')
 )

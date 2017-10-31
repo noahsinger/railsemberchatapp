@@ -25,6 +25,11 @@ class UsersController < ApplicationController
     @user = User.find_or_create_by(user_params)
 
     if @user.save
+      ActionCable.server.broadcast 'users',
+        id: @user.id,
+        nickname: @user.nickname,
+        loggedin: @user.loggedin
+
       render jsonapi: @user, status: :created, location: @user
     else
       render jsonapi_errors: @user.errors, status: :unprocessable_entity
@@ -34,6 +39,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
+      ActionCable.server.broadcast 'users',
+        id: @user.id,
+        nickname: @user.nickname,
+        loggedin: @user.loggedin
+
       render jsonapi: @user
     else
       render jsonapi_errors: @user.errors, status: :unprocessable_entity
