@@ -3,10 +3,6 @@ body {
   margin: 0;
 }
 
-main {
-  /*display: grid;*/
-}
-
 /* general */
 
 h1 {
@@ -128,4 +124,39 @@ button {
   background-color: #777;
   padding: 20px;
   cursor: pointer;
+}
+
+
+/* responsive */
+
+@media screen and (min-width: 500px) {
+  #user_list {
+    /*border: 1px solid blue;*/
+    background-color: inherit;
+    float: left;
+    width: 200px;
+    padding: 0;
+  }
+
+    #user_list ul {
+      float: none;
+    }
+
+    #user_list ul li {
+      float: none;
+      padding: 10px 20px;
+      border-bottom: 1px solid #777;
+    }
+
+  #message_list {
+    /*border: 1px solid red;*/
+    margin: 0 0 0 200px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  main {
+    width: 850px;
+    margin: 0 auto;
+  }
 }
