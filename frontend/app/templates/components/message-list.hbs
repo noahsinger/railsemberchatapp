@@ -1,0 +1,29 @@
+<div id="message_list">
+  <ul>
+    {{#each messages as |message|}}
+      {{#if message.user.isCurrentUser}}
+        <li class="self">
+          <div class="message">
+            <div class="user">
+              {{message.user.nickname}}
+            </div>
+            <div class="content">
+              {{message.content}}
+            </div>
+          </div>
+        </li>
+      {{else}}
+        <li>
+          <div class="message">
+            <div class="user">
+              {{message.user.nickname}}
+            </div>
+            <div class="content">
+              {{message.content}}
+            </div>
+          </div>
+        </li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>
