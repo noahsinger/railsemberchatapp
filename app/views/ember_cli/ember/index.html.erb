@@ -1,0 +1,13 @@
+<!-- app/views/application/index.html.erb -->
+<%= render_ember_app :frontend do |head, body| %>
+  <% head.append do %>
+    <%= csrf_meta_tags %>
+
+    <%# supplies the url needed to connect to the cable streaming service %>
+    <%= action_cable_meta_tag %>
+  <% end %>
+
+  <% body.append do %>
+    <%# additional rails supplied body content here %>
+  <% end %>
+<% end %>
